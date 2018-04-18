@@ -4,7 +4,7 @@ use \Symfony\Component\Yaml\Yaml;
 use \app\Route\Route;
 use \src\controller;
 
-/*
+/**
  * Kernel - Class kernel singleton, which is loaded configuration is transmitted to the router receives data from the controller,
  * performed the desired controller method gets the result of this in the init ().
  * reads route.yml converts it into an array and passed to the constructor of the router,
@@ -12,17 +12,17 @@ use \src\controller;
  */
 final class Kernel{
 
-    /*
+    /**
      * Static variable in which we store the instance of the class
      */
 	static $_instance;
 
-    /*
+    /**
      * Property, Route class instance
      */
 	public $route;
 
-    /*
+    /**
      * Method getInstance() - a typical singleton.
      */
 	public static function getInstance() {
@@ -31,13 +31,13 @@ final class Kernel{
 		return self::$_instance;
 	}
 
-    /*
+    /**
      * Private constructor limits the implementation getInstance ()
      */
 	private function __construct(){// Constructor closed the private and empty !!!
 	}
 
-    /*
+    /**
      * Method readRouteConfig ($file) proofreads route.yml converts it into an array and passes into the router constructor
      */
 	protected function readRouteConfig($file){			// protected!!!		
@@ -45,7 +45,7 @@ final class Kernel{
 		 return $pathes;
 	}
 
-    /*
+    /**
      * Method init($file) - initializes, does not return anything. Initializes Route object and passes the parsed array.
      * After the method init($file) in the Kernel - filled Route.
      */
@@ -54,14 +54,14 @@ final class Kernel{
 		$this->route = new Route($routeConfig);	
     }
 
-    /*
+    /**
      * GetRoute() method returns the Route object.
      */
 	public function getRoute(){	
 		return $this->route;		
     }
 
-    /*
+    /**
      * method process($param), it fulfills in the controller
      * separate class (src\Controller\BlogController) and method (indexAction)
      * and creates a $controller = new src\Controller\BlogController(), returns the data to render().
@@ -72,18 +72,17 @@ final class Kernel{
 		$controllerData = $param['controller'];
 		$controller = new $controllerData();
 		$actionData = $param['action'];
-
-		return $controller -> $actionData();
+        return (isset($param['id'])) ? $controller -> $actionData($param['id']) : $controller -> $actionData();
 	}
 
-    /*
+    /**
      * getViewPath() method, the formation of ways to render()
      */
 	public function getViewPath() {
         return realpath( __DIR__ . '/../../src/view/');
 	}
 
-    /*
+    /**
      * The method render ($routeParams, $controllerParams) performs mapping result of the work
      */
 	public function render($routeParams, $controllerParams){

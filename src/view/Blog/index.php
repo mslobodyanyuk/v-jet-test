@@ -1,47 +1,63 @@
 <title>v-jet test Blog</title>
 <?php
-use src\DB\DB as DB;
-header('Content-Type: text/html; charset=utf-8');
-/** Index - default
+/**
+ * index - default
  * view/Blog/index.php - displays the result of the method index of controller in the BlogController
  */
+use src\DB\DB as DB;
+header('Content-Type: text/html; charset=utf-8');
 $params = $controllerParams;
-echo '<h1>Топ "' .  DB::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
-//echo "<pre>", var_dump($params['top_publications']), "<pre/>";
- foreach($params['top_publications'] as $item) {
-    echo '<div>';
+
+if( $params['list_articles_params']['numberArticles'] > 0 ) {
+    echo '<h1>Топ "' .  DB::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
+     foreach($params['top_publications'] as $item) {
         echo '<div>';
-             echo '<a href="/cart?id=' . $item['id'] . '"><h3>', $item['title'], '</h3></a>';//ссылка на статью, должно переходить на статью при нажатии на названии статьи как и "Читать больше"
-             echo '<img src="/upl/images/' . $item['image'] . '"/>';
+            echo '<div>';
+                 echo '<a href="/cart/' . $item['id'] . '"><h3>', $item['title'], '</h3></a>';
+                 echo '<img src="/upl/images/' . $item['image'] . '"/>';
+            echo '</div>';
+            echo '<div>';
+                  echo mb_substr(strip_tags($item['text']), 0, 100), '...';
+            echo '</div>';
         echo '</div>';
+     }
+
+    echo '<h1>Список публикаций в блог:</h1>';
+    echo "<hr>";
+    foreach($params['list_articles_params']['articles'] as $item) {
         echo '<div>';
-              echo mb_substr(strip_tags($item['text']), 0, 100), '...';
+            echo '<div>';
+                echo "<h2>", $item['title'], "</h2>";
+                echo '<img src="/upl/images/' . $item['image'] . '"/>';
+            echo '</div>';
+            echo '<div>';
+                echo mb_substr(strip_tags($item['text']), 0, 100), '...';
+                echo "<br/>кол-во просмотров: ", $item['views'];
+                echo "<br/>автор: ", $item['author'];
+                echo "<br/>дата публикации: ", date('d.m.Y', strtotime($item['pubdate'])), "<br/>";
+                echo "комментариев: ", $item['count'];
+            echo '</div>';
+            echo '<div>';
+                echo '<a href="/cart/' . $item['id'] . '">Читать больше</a>';
+            echo '</div>';
         echo '</div>';
-    echo '</div>';
+    echo "<hr>";
+    }
+
+    //paginator
+        echo '<div  class="paginator">';
+            if($params['list_articles_params']['page'] > 1) {
+                echo '<a href="/page/' . ($params['list_articles_params']['page'] - 1) . '">&laquo; Предыдущая страница </a>';
+            }
+
+            if($params['list_articles_params']['page'] < $params['list_articles_params']['totalPages'] ) {
+                echo '<a href="/page/' . ($params['list_articles_params']['page'] + 1) . '"> Следующая страница &raquo;</a>';
+            }
+        echo '</div>';
+ }else{
+        echo '<span style="color: red;font-weight: bold"><h3>Нет публикаций.</h3></span>';
  }
-
-//echo "<pre>", var_dump($params['articles']), "<pre/>";
-
-echo '<h1>Список публикаций в блог:</h1>';
-echo "<hr>";
-foreach($params['articles'] as $item) {
-    echo '<div>';
-        echo '<div>';
-            echo "<h2>", $item['title'], "</h2>";
-            echo '<img src="/upl/images/' . $item['image'] . '"/>';
-        echo '</div>';
-        echo '<div>';
-            echo mb_substr(strip_tags($item['text']), 0, 100), '...';
-            echo "<br/>автор: ", $item['author'];
-            echo "<br/>дата публикации: ", date('d.m.Y', strtotime($item['pubdate'])), "<br/>";
-            echo "комментариев: ", $item['count'];
-        echo '</div>';
-        echo '<div>';
-            echo '<a href="/cart.php?id=' . $item['id'] . '">Читать больше</a>';//ссылка на статью, должно переходить на статью при нажатии на "Читать больше"
-        echo '</div>';
-    echo '</div>';
-echo "<hr>";
-}
+    //paginator
 ?>
 
 <div id="article-add-form">
@@ -61,8 +77,6 @@ echo "<hr>";
         <textarea name="text" placeholder="Текст публикации ..."></textarea>
     </div>
     <div>
-        <input type="submit" value="Добавить публикацию">
+        <input type="submit" name="do_post" value="Добавить публикацию">
     </div>
 </form>
-
-

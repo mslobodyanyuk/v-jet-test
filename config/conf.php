@@ -1,11 +1,14 @@
 <?php
 namespace config;
 
-/*
+/**
  * class Conf containing config variables, array variables
  */
 class Conf
 {
+    /**
+     * @return array
+     */
     public function getConfigParameters()
     {
         /*config variables array 'databaseParameters'*/
@@ -19,6 +22,10 @@ class Conf
         return $result;
     }
 
+    /**
+     * @param string $key
+     * @return array|string
+     */
     public function getUploadFileParameters($key = 'uplPath')
     {
         if ('uplPath' == $key){

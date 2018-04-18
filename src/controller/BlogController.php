@@ -1,7 +1,6 @@
 <?php
 namespace src\controller;
 error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
-//error_reporting(E_ALL);
 
 use config;
 use src\DB\DB as DB;
@@ -12,60 +11,45 @@ use src\DB\DB as DB;
 class BlogController {
 
     /**
-     * Method (Action) indexAction() of controller is executed by default
+     * @return mixed
      */
-	public function indexAction() {
-        $configParams = new config\Conf();
-        $databaseParameters = $configParams -> getConfigParameters();
-        $db = new DB($databaseParameters['host'], $databaseParameters['name'], $databaseParameters['password'], $databaseParameters['database']);
-
+    public function indexAction() {
+        $db = new DB;
         $params['top_publications'] = $db->getTopPublications();
-        $params['articles'] = $db->getListPublications();
+        $params['list_articles_params'] = $db->getPageListPublications($page = null);
         return $params;
 	}
 
-    public function uploadAction() {
-        $configParams = new config\Conf();
-        $databaseParameters = $configParams -> getConfigParameters();
-        $db = new DB($databaseParameters['host'], $databaseParameters['name'], $databaseParameters['password'], $databaseParameters['database']);
-
-
-
-        $uplPath = $configParams -> getUploadFileParameters();
-        $parameters = $configParams -> getUploadFileParameters('fileUploadParameters');
-
-        $uplTempNamePath = $parameters['uplTempNamePath'];
-        $uplNamePath = $parameters['uplNamePath'];
-
-        if (is_uploaded_file($uplTempNamePath)) {
-            $uploadfile = $uplPath . basename($uplNamePath);
-            copy($uplNamePath, $uploadfile);
-
-echo "<pre>uploadfile = ", var_dump($uploadfile), "<pre/>";
-echo "<pre>uplNamePath = ", var_dump($uplNamePath), "<pre/>";
-
-            if (!$handle = fopen($uploadfile, 'a')) {
-                echo "Can't open file($uploadfile)";
-                exit;
-            }
-        }
-
-        return $params = $db->postPublication();
+    /**
+     * @param $page
+     * @return mixed
+     */
+    public function pageAction($page) {
+        $db = new DB;
+        $params['top_publications'] = $db->getTopPublications();
+        $params['list_articles_params'] = $db->getPageListPublications($page);
+        return $params;
     }
 
-
-	public function cartAction() {
-        $configParams = new config\Conf();
-        $databaseParameters = $configParams -> getConfigParameters();
-        $db = new DB($databaseParameters['host'], $databaseParameters['name'], $databaseParameters['password'], $databaseParameters['database']);
-
-        $params['article'] = $db->getArticle();
-$id = 3;
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function cartAction($id) {
+        $db = new DB;
+        $params['article'] = $db->getArticle($id);
         $params['comments'] = $db->getCommentsForPublicationById($id);
-
         return $params;
-	}
+    }
 
+    /**
+     * @param $id
+     * @return array|bool
+     */
+    public function uploadAction($id) {
+        $db = new DB;
+        $errors = $db->checkPostErrors();
+        return (!empty($errors)) ? $errors : $db->postPublication($id);
+    }
 
-	
 }

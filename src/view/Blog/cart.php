@@ -1,11 +1,15 @@
+<title>view cart</title>
 <?php
-    header('Content-Type: text/html; charset=utf-8');
-    $params = $controllerParams;
-
-//echo "<pre>", var_dump($params['article']), "<pre/>";
+/**
+ * cart
+ * view/Blog/cart.php - displays the result of the method cart of controller in the BlogController
+ */
+header('Content-Type: text/html; charset=utf-8');
+$params = $controllerParams;
 
 echo "<h1>", $params['article'][0]['title'], "</h1>";
     echo '<div>';
+        echo "кол-во просмотров: ", $params['article'][0]['views'], "<br/>";
         echo "автор: ", $params['article'][0]['author'], "<br/>";
         echo "дата публикации: ", date('d.m.Y', strtotime($params['article'][0]['pubdate'])), "<br/>";
         echo "комментариев: ", $params['article'][0]['count'], "<br/>";
@@ -16,8 +20,6 @@ echo "<h1>", $params['article'][0]['title'], "</h1>";
     echo '<div>';
          echo strip_tags($params['article'][0]['text']);
     echo '</div>';
-
-//echo "<pre>", var_dump($params['comments']), "<pre/>";
 
 echo '<h2>Список комментариев к статье:</h2>';
 echo "<hr>";
@@ -37,7 +39,7 @@ echo "<hr>";
 
 <div id="article-add-form">
     <h3>Добавить комментарий</h3>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form action="/upload/<?php echo $params['article'][0]['id'] ?>" method="post" enctype="multipart/form-data">
         <div>
             <input type="text" name="name" placeholder="Имя">
             <input type="text" name="nickname" placeholder="nickname">
@@ -47,7 +49,7 @@ echo "<hr>";
             <textarea name="text" placeholder="Текст комментария ..."></textarea>
         </div>
         <div>
-            <input type="submit" name="do_post" value="Добавить комментарий">
+            <input type="submit" name="do_comment" value="Добавить комментарий">
         </div>
     </form>
 </div>
