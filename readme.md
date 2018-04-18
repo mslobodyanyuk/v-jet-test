@@ -8,22 +8,27 @@ There are two pages in the functional: a list of the last records and one entry.
 
 On the list of the most recent entries, the slider is "popular" from the 5 most commented entries.
 Below - entries in the statutory order of publication, which must contain
-*author's name,
-*short publication text (trimming 100 characters),
-*date of publication,
-*number of comments and
-*a link to go to the full record.
+
+* author's name,
+* short publication text (trimming 100 characters),
+* date of publication,
+* number of comments and
+* a link to go to the full record.
 
 Also on this page there must be a form for sending the publication, which indicates
-*username and
-*the text of the publication.
+
+* username and
+* the text of the publication.
 
 The full publication page shows everything the same as in the short publication, only the text of the publication should be complete,
 and
-*comments on this publication and
+
+* comments on this publication and
+
 The form for adding a new comment is
-*the name of the author and
-*the text of the publication.
+
+* the name of the author and
+* the text of the publication.
 
 The choice of the way information is stored and the visual component is at the discretion of the candidate.
 
@@ -56,5 +61,7 @@ Actions on deployment of the project:
 * The database dump is located in the `public` folder.
 
 * useful links: 
+
 [Учим PHP за 1 Час! ► Часть 3 ► Делаем свой блог! #От Профессионала](https://www.youtube.com/watch?v=xihMCwARRpk)
+
 <http://php.net/manual/ru/features.file-upload.post-method.php>
