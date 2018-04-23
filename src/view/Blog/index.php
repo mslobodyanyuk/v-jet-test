@@ -8,9 +8,9 @@ use src\DB\DB as DB;
 header('Content-Type: text/html; charset=utf-8');
 $params = $controllerParams;
 
-if( $params['list_articles_params']['numberArticles'] > 0 ) {
+if( $params['listArticlesParams']['numberArticles'] > 0 ) {
     echo '<h1>Топ "' .  DB::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
-     foreach($params['top_publications'] as $item) {
+     foreach($params['topPublications'] as $item) {
         echo '<div>';
             echo '<div>';
                  echo '<a href="/cart/' . $item['id'] . '"><h3>', $item['title'], '</h3></a>';
@@ -24,7 +24,7 @@ if( $params['list_articles_params']['numberArticles'] > 0 ) {
 
     echo '<h1>Список публикаций в блог:</h1>';
     echo "<hr>";
-    foreach($params['list_articles_params']['articles'] as $item) {
+    foreach($params['listArticlesParams']['articles'] as $item) {
         echo '<div>';
             echo '<div>';
                 echo "<h2>", $item['title'], "</h2>";
@@ -46,12 +46,12 @@ if( $params['list_articles_params']['numberArticles'] > 0 ) {
 
     //paginator
         echo '<div  class="paginator">';
-            if($params['list_articles_params']['page'] > 1) {
-                echo '<a href="/page/' . ($params['list_articles_params']['page'] - 1) . '">&laquo; Предыдущая страница </a>';
+            if($params['listArticlesParams']['page'] > 1) {
+                echo '<a href="/page/' . ($params['listArticlesParams']['page'] - 1) . '">&laquo; Предыдущая страница </a>';
             }
 
-            if($params['list_articles_params']['page'] < $params['list_articles_params']['totalPages'] ) {
-                echo '<a href="/page/' . ($params['list_articles_params']['page'] + 1) . '"> Следующая страница &raquo;</a>';
+            if($params['listArticlesParams']['page'] < $params['listArticlesParams']['totalPages'] ) {
+                echo '<a href="/page/' . ($params['listArticlesParams']['page'] + 1) . '"> Следующая страница &raquo;</a>';
             }
         echo '</div>';
  }else{

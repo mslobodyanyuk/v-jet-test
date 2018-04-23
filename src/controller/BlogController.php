@@ -15,8 +15,8 @@ class BlogController {
      */
     public function indexAction() {
         $db = new DB;
-        $params['top_publications'] = $db->getTopPublications();
-        $params['list_articles_params'] = $db->getPageListPublications($page = null);
+        $params['topPublications'] = $db->getTopPublications();
+        $params['listArticlesParams'] = $db->getPageListPublications($page = null);
         return $params;
 	}
 
@@ -26,8 +26,8 @@ class BlogController {
      */
     public function pageAction($page) {
         $db = new DB;
-        $params['top_publications'] = $db->getTopPublications();
-        $params['list_articles_params'] = $db->getPageListPublications($page);
+        $params['topPublications'] = $db->getTopPublications();
+        $params['listArticlesParams'] = $db->getPageListPublications($page);
         return $params;
     }
 
