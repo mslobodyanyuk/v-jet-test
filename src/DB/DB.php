@@ -6,7 +6,7 @@ use config;
 use Exception;
 
 /**
- * The class implements interaction with the database, methods that use queries
+ * The class implements interaction with the blog database, methods that use queries
  */
 class DB {
 
@@ -29,12 +29,12 @@ class DB {
         $configParams = new config\Conf();
         $databaseParameters = $configParams -> getConfigParameters();
 
-        $this->host=$databaseParameters['host'];
-        $this->name=$databaseParameters['name'];
-        $this->password=$databaseParameters['password'];
-        $this->database=$databaseParameters['database'];
+        $this->host = $databaseParameters['host'];
+        $this->name = $databaseParameters['name'];
+        $this->password = $databaseParameters['password'];
+        $this->database = $databaseParameters['database'];
 
-        if (!($this->db=mysqli_connect($this->host,$this->name,$this->password))){
+        if (!($this->db = mysqli_connect($this->host,$this->name,$this->password))){
             throw new Exception ("Can't connect to the server.");
         }
         if (!mysqli_select_db($this->db, $this->database)){
@@ -44,7 +44,7 @@ class DB {
     }
 
     /**
-     * @param $sqlQuery
+     * @param string $sqlQuery
      * @param string $getType
      * @return array
      * @throws Exception
@@ -75,7 +75,7 @@ class DB {
     }
 
     /**
-     * @param $page
+     * @param string $page
      * @return mixed
      * @throws Exception
      */
@@ -190,7 +190,7 @@ class DB {
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return array
      * @throws Exception
      */
@@ -204,7 +204,7 @@ class DB {
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return array
      * @throws Exception
      */
@@ -225,7 +225,7 @@ class DB {
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return array
      * @throws Exception
      */

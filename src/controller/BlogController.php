@@ -21,7 +21,7 @@ class BlogController {
 	}
 
     /**
-     * @param $page
+     * @param string $page
      * @return mixed
      */
     public function pageAction($page) {
@@ -32,7 +32,7 @@ class BlogController {
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return mixed
      */
     public function cartAction($id) {
@@ -43,7 +43,7 @@ class BlogController {
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return array|bool
      */
     public function uploadAction($id) {
