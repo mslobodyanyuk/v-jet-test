@@ -3,7 +3,8 @@ namespace src\controller;
 error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
 
 use config;
-use src\DB\DB as DB;
+use src\DB\BlogPublicationsQueries as BlogPublicationsQueries;
+use src\FORM\CheckFormData as CheckFormData;
 
 /**
  * Class Controller, the controller performs Actions.
@@ -14,7 +15,7 @@ class BlogController {
      * @return mixed
      */
     public function indexAction() {
-        $db = new DB;
+        $db = new BlogPublicationsQueries;
         $params['topPublications'] = $db->getTopPublications();
         $params['listArticlesParams'] = $db->getPageListPublications($page = null);
         return $params;
@@ -25,7 +26,7 @@ class BlogController {
      * @return mixed
      */
     public function pageAction($page) {
-        $db = new DB;
+        $db = new BlogPublicationsQueries;
         $params['topPublications'] = $db->getTopPublications();
         $params['listArticlesParams'] = $db->getPageListPublications($page);
         return $params;
@@ -36,7 +37,7 @@ class BlogController {
      * @return mixed
      */
     public function cartAction($id) {
-        $db = new DB;
+        $db = new BlogPublicationsQueries;
         $params['article'] = $db->getArticle($id);
         $params['comments'] = $db->getCommentsForPublicationById($id);
         return $params;
@@ -47,8 +48,8 @@ class BlogController {
      * @return array|bool
      */
     public function uploadAction($id) {
-        $db = new DB;
-        $errors = $db->checkPostErrors();
+        $db = new BlogPublicationsQueries;
+        $errors = CheckFormData::check();
         return (!empty($errors)) ? $errors : $db->postPublication($id);
     }
 

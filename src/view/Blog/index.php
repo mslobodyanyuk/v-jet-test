@@ -4,12 +4,12 @@
  * index - default
  * view/Blog/index.php - displays the result of the method index of controller in the BlogController
  */
-use src\DB\DB as DB;
+use src\DB\BlogPublicationsQueries as BlogPublicationsQueries;
 header('Content-Type: text/html; charset=utf-8');
 $params = $controllerParams;
 
 if( $params['listArticlesParams']['numberArticles'] > 0 ) {
-    echo '<h1>Топ "' .  DB::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
+    echo '<h1>Топ "' . BlogPublicationsQueries::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
      foreach($params['topPublications'] as $item) {
         echo '<div>';
             echo '<div>';

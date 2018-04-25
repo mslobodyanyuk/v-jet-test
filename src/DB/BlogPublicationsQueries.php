@@ -8,7 +8,7 @@ use Exception;
 /**
  * The class implements interaction with the blog database, methods that use queries
  */
-class DB {
+class BlogPublicationsQueries {
 
     const
         NUMBER_MOST_POPULAR_POSTS = 5,
@@ -27,7 +27,7 @@ class DB {
     public function __construct ()
     {
         $configParams = new config\Conf();
-        $databaseParameters = $configParams -> getConfigParameters();
+        $databaseParameters = $configParams->getConfigParameters();
 
         $this->host = $databaseParameters['host'];
         $this->name = $databaseParameters['name'];
@@ -109,84 +109,6 @@ class DB {
         $params['articles'] = $this->query($sql);
 
         return $params;
-    }
-
-    /**
-     * @return bool
-     */
-    public function imagePublicationUpload()
-    {
-        $configParams = new config\Conf();
-        $uplPath = $configParams->getUploadFileParameters();
-        $parameters = $configParams->getUploadFileParameters('fileUploadParameters');
-
-        $uplTempNamePath = $parameters['uplTempNamePath'];
-        $uplNamePath = $parameters['uplNamePath'];
-
-        if (is_uploaded_file($uplTempNamePath)) {
-            $uploadFile = $uplPath . basename($uplNamePath);
-            copy($uplNamePath, $uploadFile);
-
-            if (!$handle = fopen($uploadFile, 'a')) {
-                echo "Can't open file($uploadFile)";
-                exit;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkPostErrors()
-    {
-        $errors = array();
-//article
-        if (isset($_POST['do_post'])) {
-
-            if ($_POST['name'] == '') {
-                $errors[] = "Введите имя!";
-            }
-
-            if (!$this->imagePublicationUpload()){
-                $errors[] = "Загрузите картинку!";
-            }
-
-            if ($_POST['title'] == '') {
-                $errors[] = "Введите название публикации!";
-            }
-
-            if ($_POST['text'] == '') {
-                $errors[] = "Введите текст публикации!";
-            }
-        }
-//comment
-        if (isset($_POST['do_comment'])) {
-
-            if ($_POST['name'] == '') {
-                $errors[] = "Введите имя!";
-            }
-
-            if ($_POST['nickname'] == '') {
-                $errors[] = "Введите ник!";
-            }
-
-            if ($_POST['email'] == '') {
-                $errors[] = "Введите email!";
-            }
-
-            if ($_POST['text'] == '') {
-                $errors[] = "Введите текст комментария!";
-            }
-        }
-
-        if (!empty($errors)){
-            $params['post'] = $_POST;
-            $params['errors'] = $errors;
-            return $params;
-        }
-        return false;
     }
 
     /**
