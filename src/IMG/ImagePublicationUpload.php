@@ -1,6 +1,6 @@
 <?php
 
-namespace src\IMG;
+namespace src\img;
 use config;
 
 /**
@@ -24,9 +24,9 @@ class ImagePublicationUpload {
             copy($uplNamePath, $uploadFile);
 
             if (!$handle = fopen($uploadFile, 'a')) {
-                echo "Can't open file($uploadFile)";
-                exit;
+                return false;
             }
+
             return true;
         }
         return false;

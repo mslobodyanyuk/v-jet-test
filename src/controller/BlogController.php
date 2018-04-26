@@ -3,8 +3,8 @@ namespace src\controller;
 error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
 
 use config;
-use src\DB\BlogPublicationsQueries as BlogPublicationsQueries;
-use src\FORM\CheckFormData as CheckFormData;
+use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
+use src\form\CheckFormData as CheckFormData;
 
 /**
  * Class Controller, the controller performs Actions.

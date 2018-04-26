@@ -4,7 +4,7 @@
  * index - default
  * view/Blog/index.php - displays the result of the method index of controller in the BlogController
  */
-use src\DB\BlogPublicationsQueries as BlogPublicationsQueries;
+use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
 header('Content-Type: text/html; charset=utf-8');
 $params = $controllerParams;
 

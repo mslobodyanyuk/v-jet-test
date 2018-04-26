@@ -1,7 +1,7 @@
 <?php
 
-namespace src\FORM;
-use src\IMG\ImagePublicationUpload as ImagePublicationUpload;
+namespace src\form;
+use src\img\ImagePublicationUpload as ImagePublicationUpload;
 
 /**
  * The class is designed to check the form filling
