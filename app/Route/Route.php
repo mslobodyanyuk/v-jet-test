@@ -22,9 +22,10 @@ class Route{
     /**
      * Method match ($url) (match - case pick up a pair, match)
      * goes through $this -> routeParams and is an option.
-     * return the desired settings - returns array ( 'controller' => 'controller', 'action' => 'method').
+     * return the desired settings - returns array ( 'controller' => 'controller', 'action' => 'method')
+     * or array('controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]).
      */
-    public function match($url){
+/*    public function match($url){
         foreach($this->routeParams as $param){
             if ( $param[0] == $url ){
                 $controllerParams = explode('.', $param[1]);
@@ -40,6 +41,13 @@ class Route{
                     }
                     return array('controller' => $controllerParams[0], 'action' => $controllerParams[1]);
                 }
+        }
+    }*/
+
+    public function match($url){
+        foreach($this->routeParams as $param){
+            $controllerParams = explode('.', $param[1]);
+            return ($param[0] == $url) ? array('controller' => $controllerParams[0], 'action' => $controllerParams[1]) : ControllerParamsFromUrl::getParams($controllerParams[0], $url);
         }
     }
 

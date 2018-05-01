@@ -72,8 +72,8 @@ class BlogPublicationsQueries {
     {
         $db = new DB();
         $db->query( "SET CHARSET utf8" );
-        $sqlArticle = "INSERT INTO  articles ( author, title, image, text, pubdate ) VALUES ('".$_POST['name']."','".$_POST['title']."','".$_FILES['uploadfile']['name']."','".$_POST['text']."',NOW())";
-        $sqlComment = "INSERT INTO  comments ( author, nickname, email, text, pubdate, articles_id ) VALUES ('".$_POST['name']."','".$_POST['nickname']."','".$_POST['email']."','".$_POST['text']."',NOW(),'".$id."')";
+        $sqlArticle = "INSERT INTO articles ( author, title, image, text, pubdate ) VALUES ('".$_POST['name']."','".$_POST['title']."','".$_FILES['uploadfile']['name']."','".$_POST['text']."',NOW())";
+        $sqlComment = "INSERT INTO comments ( author, nickname, email, text, pubdate, articles_id ) VALUES ('".$_POST['name']."','".$_POST['nickname']."','".$_POST['email']."','".$_POST['text']."',NOW(),'".$id."')";
         $sql = (isset($id)) ? $sqlComment : $sqlArticle;
         return $params = $db->query($sql);
     }
@@ -107,6 +107,7 @@ class BlogPublicationsQueries {
      */
     public function getCommentsForPublicationById($id){
         $db = new DB();
+        $db->query( "SET CHARSET utf8" );
         $sql = 'SELECT * FROM comments WHERE articles_id =' . (int) $id . ' ORDER BY id DESC';
         return $params = $db->query($sql);
     }
