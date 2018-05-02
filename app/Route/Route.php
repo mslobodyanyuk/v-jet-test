@@ -47,7 +47,7 @@ class Route{
     public function match($url){
         foreach($this->routeParams as $param){
             $controllerParams = explode('.', $param[1]);
-            return ($param[0] == $url) ? array('controller' => $controllerParams[0], 'action' => $controllerParams[1]) : ControllerParamsFromUrl::getParams($controllerParams[0], $url);
+            return ($param[0] == $url) ? array('controller' => $controllerParams[0], 'action' => $controllerParams[1]) : RouteParamManager::getParams($controllerParams[0], $url);
         }
     }
 
