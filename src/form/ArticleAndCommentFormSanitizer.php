@@ -6,7 +6,7 @@ use src\img\ImagePublicationUpload as ImagePublicationUpload;
 /**
  * The class is designed to check the form filling
  */
-class CheckFormData {
+class ArticleAndCommentFormSanitizer {
 
     const
     //article

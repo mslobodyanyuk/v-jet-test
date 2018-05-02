@@ -4,7 +4,7 @@ error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
 
 use config;
 use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
-use src\form\CheckFormData as CheckFormData;
+use src\form\ArticleAndCommentFormSanitizer as ArticleAndCommentFormSanitizer;
 
 /**
  * Class Controller, the controller performs Actions.
@@ -49,7 +49,7 @@ class BlogController {
      */
     public function uploadAction($id) {
         $db = new BlogPublicationsQueries;
-        $errors = CheckFormData::check();
+        $errors = ArticleAndCommentFormSanitizer::check();
         return (!empty($errors)) ? $errors : $db->postPublication($id);
     }
 
