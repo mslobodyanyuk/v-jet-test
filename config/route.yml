@@ -1,4 +1,5 @@
-index:  [/, src\Controller\BlogController.indexAction]
+index: [/, src\Controller\BlogController.indexAction]
+
 cart: [/cart/{id}, src\Controller\BlogController.cartAction]
-upload: [/upload/{id}, src\Controller\BlogController.uploadAction]
+
 page: [/page/{page}, src\Controller\BlogController.pageAction]

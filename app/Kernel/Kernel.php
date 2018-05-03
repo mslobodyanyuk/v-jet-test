@@ -69,6 +69,14 @@ final class Kernel{
      * $param = [ '/', 'src\Controller\BlogController.indexAction' ];
      */
 	public function process($param){
+/*echo'<pre>8',var_dump($param['action']),'</pre>';
+
+if ( $param['action'] == NULL ) {
+
+    echo'<pre>!!!',var_dump($param['action']),'</pre>';
+    return;
+}*/
+
 		$controllerData = $param['controller'];
 		$controller = new $controllerData();
 		$actionData = $param['action'];

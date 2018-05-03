@@ -5,9 +5,12 @@
  * view/Blog/index.php - displays the result of the method index of controller in the BlogController
  */
 use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
+use src\form\ArticleAndCommentFormSanitizer;
+
 header('Content-Type: text/html; charset=utf-8');
 $params = $controllerParams;
 
+echo '<section>';
 if( $params['listArticlesParams']['numberArticles'] > 0 ) {
     echo '<h1>Топ "' . BlogPublicationsQueries::NUMBER_MOST_POPULAR_POSTS . '" читаемых статей:</h1>';
      foreach($params['topPublications'] as $item) {
@@ -43,7 +46,9 @@ if( $params['listArticlesParams']['numberArticles'] > 0 ) {
         echo '</div>';
     echo "<hr>";
     }
+echo '</section>';
 
+echo '<section>';
     //paginator
         echo '<div  class="paginator">';
             if($params['listArticlesParams']['page'] > 1) {
@@ -58,25 +63,36 @@ if( $params['listArticlesParams']['numberArticles'] > 0 ) {
         echo '<span style="color: red;font-weight: bold"><h3>Нет публикаций.</h3></span>';
  }
     //paginator
+echo '</section>';
 ?>
 
-<div id="article-add-form">
-    <h3>Добавить статью</h3>
-<form action="/upload" method="post" enctype="multipart/form-data">
-    <div>
-        <input type="text" name="name" placeholder="Имя">
-    </div>
-    <div>
-        Изображение
-        <input type="file" name="uploadfile">
-    </div>
-    <div>
-        <input type="text" name="title" placeholder="Название публикации">
-    </div>
-    <div>
-        <textarea name="text" placeholder="Текст публикации ..."></textarea>
-    </div>
-    <div>
-        <input type="submit" name="do_post" value="Добавить публикацию">
-    </div>
-</form>
+<section>
+    <div id="article-add-form">
+        <h3>Добавить статью</h3>
+    <!--<form action="/upload" method="post" enctype="multipart/form-data">-->
+        <!--<form action="/index.php" method="post" enctype="multipart/form-data">-->
+        <form action="/index" method="post" enctype="multipart/form-data">
+        <?php
+            $db = new BlogPublicationsQueries;
+            $errors = ArticleAndCommentFormSanitizer::check();
+           echo (!empty($errors)) ?  $errors[0] : $db->postPublication($id);
+            echo (!$errors) ? '<span style="color: green;font-weight: bold"><h3>Статья или комментарий успешно добавлен.</h3></span><br />' : '<span style="color: red;font-weight: bold"><h3>' . $params['errors'][0] . '</h3></span><br />';
+        ?>
+        <div>
+            <input type="text" name="name" placeholder="Имя">
+        </div>
+        <div>
+            Изображение
+            <input type="file" name="uploadfile">
+        </div>
+        <div>
+            <input type="text" name="title" placeholder="Название публикации">
+        </div>
+        <div>
+            <textarea name="text" placeholder="Текст публикации ..."></textarea>
+        </div>
+        <div>
+            <input type="submit" name="do_post" value="Добавить публикацию">
+        </div>
+    </form>
+</section>

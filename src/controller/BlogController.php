@@ -48,9 +48,9 @@ class BlogController {
      * @return array|bool
      */
     public function uploadAction($id) {
-        $db = new BlogPublicationsQueries;
+/*        $db = new BlogPublicationsQueries;
         $errors = ArticleAndCommentFormSanitizer::check();
-        return (!empty($errors)) ? $errors : $db->postPublication($id);
+        return (!empty($errors)) ? $errors : $db->postPublication($id);*/
     }
 
 }
