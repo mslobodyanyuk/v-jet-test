@@ -29,7 +29,7 @@ class ArticleAndCommentFormSanitizer {
 
 //article
         if (isset($_POST['do_post'])) {
-echo'<pre>!!!',var_dump($_POST),'</pre>';
+
             if ($_POST['name'] == '') {
                 $errors[] = self::ARTICLE_MISSING_NAME_RU;
             }
@@ -67,8 +67,9 @@ echo'<pre>!!!',var_dump($_POST),'</pre>';
         }
 
         if (!empty($errors)){
-            $params['post'] = $_POST;
-            $params['errors'] = $errors;
+           // $params['post'] = $_POST;
+            //$params['errors'] = $errors;
+            $params = ($errors);
             return $params;
         }
         return false;

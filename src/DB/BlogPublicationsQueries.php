@@ -74,6 +74,7 @@ class BlogPublicationsQueries {
         $db->query( "SET CHARSET utf8" );
         $sqlArticle = "INSERT INTO articles ( author, title, image, text, pubdate ) VALUES ('".$_POST['name']."','".$_POST['title']."','".$_FILES['uploadfile']['name']."','".$_POST['text']."',NOW())";
         $sqlComment = "INSERT INTO comments ( author, nickname, email, text, pubdate, articles_id ) VALUES ('".$_POST['name']."','".$_POST['nickname']."','".$_POST['email']."','".$_POST['text']."',NOW(),'".$id."')";
+        $_POST = '';
         $sql = (isset($id)) ? $sqlComment : $sqlArticle;
         return $params = $db->query($sql);
     }

@@ -65,3 +65,12 @@ Actions on deployment of the project:
 [Учим PHP за 1 Час! ► Часть 3 ► Делаем свой блог! #От Профессионала](https://www.youtube.com/watch?v=xihMCwARRpk)
 
 <http://php.net/manual/ru/features.file-upload.post-method.php>
+
+[PHP: function arguments, marker in PHP 5.6](http://php.net/manual/en/functions.arguments.php#example-151)
+	
+	
+[Sanitize Output in PHP - HTMLEntities](https://www.youtube.com/watch?v=ESJTIMD3buM)
+	
+[PHP Best Practices:Sanitising Output](https://www.youtube.com/watch?v=LM25Sm2z-Mk)
+
+[Sanitize filters](http://php.net/manual/en/filter.filters.sanitize.php)

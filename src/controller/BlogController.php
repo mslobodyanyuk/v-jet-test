@@ -4,7 +4,6 @@ error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
 
 use config;
 use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
-use src\form\ArticleAndCommentFormSanitizer as ArticleAndCommentFormSanitizer;
 
 /**
  * Class Controller, the controller performs Actions.
@@ -41,16 +40,6 @@ class BlogController {
         $params['article'] = $db->getArticle($id);
         $params['comments'] = $db->getCommentsForPublicationById($id);
         return $params;
-    }
-
-    /**
-     * @param string $id
-     * @return array|bool
-     */
-    public function uploadAction($id) {
-/*        $db = new BlogPublicationsQueries;
-        $errors = ArticleAndCommentFormSanitizer::check();
-        return (!empty($errors)) ? $errors : $db->postPublication($id);*/
     }
 
 }

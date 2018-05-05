@@ -69,30 +69,33 @@ echo '</section>';
 <section>
     <div id="article-add-form">
         <h3>Добавить статью</h3>
-    <!--<form action="/upload" method="post" enctype="multipart/form-data">-->
-        <!--<form action="/index.php" method="post" enctype="multipart/form-data">-->
-        <form action="/index" method="post" enctype="multipart/form-data">
-        <?php
-            $db = new BlogPublicationsQueries;
-            $errors = ArticleAndCommentFormSanitizer::check();
-           echo (!empty($errors)) ?  $errors[0] : $db->postPublication($id);
-            echo (!$errors) ? '<span style="color: green;font-weight: bold"><h3>Статья или комментарий успешно добавлен.</h3></span><br />' : '<span style="color: red;font-weight: bold"><h3>' . $params['errors'][0] . '</h3></span><br />';
-        ?>
+        <form action="#article-add-form" method="post" enctype="multipart/form-data">
+            <?php
+                if (isset($_POST['do_post'])){
+                    $db = new BlogPublicationsQueries;
+                    $errors = ArticleAndCommentFormSanitizer::check();
+                    echo (!empty($errors)) ? '<span style="color: red;font-weight: bold"><h3>' . $errors[0] . '</h3></span><br />' : '<span style="color: green;font-weight: bold"><h3>Статья успешно добавлена.</h3></span><br />';
+                    if (empty($errors)) {
+                        $db->postPublication($id);
+                    }
+                }
+            ?>
         <div>
-            <input type="text" name="name" placeholder="Имя">
+            <input type="text" name="name" placeholder="Имя" value="<?php echo $_POST['name']?>">
         </div>
         <div>
             Изображение
             <input type="file" name="uploadfile">
         </div>
         <div>
-            <input type="text" name="title" placeholder="Название публикации">
+            <input type="text" name="title" placeholder="Название публикации" value="<?php echo $_POST['title']?>">
         </div>
         <div>
-            <textarea name="text" placeholder="Текст публикации ..."></textarea>
+            <textarea name="text" placeholder="Текст публикации ..."><?php echo $_POST['text']?></textarea>
         </div>
         <div>
             <input type="submit" name="do_post" value="Добавить публикацию">
         </div>
+    </div>
     </form>
 </section>
