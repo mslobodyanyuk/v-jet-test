@@ -68,12 +68,22 @@ final class Kernel{
      * it is necessary to perform a controller method and obtain the data and return from it.
      * $param = [ '/', 'src\Controller\BlogController.indexAction' ];
      */
-	public function process($param){
-		$controllerData = $param['controller'];
-		$controller = new $controllerData();
-		$actionData = $param['action'];
-        return (isset($param['id'])) ? $controller -> $actionData($param['id']) : $controller -> $actionData();
-	}
+    /*public function process($param){
+        $controllerData = $param['controller'];
+        $controller = new $controllerData();
+        $actionData = $param['action'];
+
+        return $controller -> $actionData();
+
+    }*/
+
+    public function process($param){
+        $controllerData = $param['controller'];
+        $controller = new $controllerData();
+        $actionData = $param['action'];
+echo '<pre>param[id] = ', var_dump($param['id']) ,'<pre/>';
+        return (isset($param['id'])) ? $controller -> $actionData[$param['id']] : $controller -> $actionData();
+    }
 
     /**
      * getViewPath() method, the formation of ways to render()
@@ -99,4 +109,4 @@ final class Kernel{
 	}
 
 }
-?>
+

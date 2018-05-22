@@ -67,11 +67,9 @@ class ArticleAndCommentFormSanitizer {
         }
 
         if (!empty($errors)){
-           // $params['post'] = $_POST;
-            //$params['errors'] = $errors;
-            $params = ($errors);
-            return $params;
+            return $errors;
         }
         return false;
     }
+
 }

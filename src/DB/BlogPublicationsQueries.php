@@ -36,6 +36,8 @@ class BlogPublicationsQueries {
 
         $page = (isset($page)) ? (int) $page : 1;
 
+echo '<pre>page = ', var_dump($page) ,'<pre/>';
+
         $numberArticles = $db->query( "SELECT COUNT(id) AS numberArticles FROM articles" );
         $numberArticles = $numberArticles[0]['numberArticles'];
 
@@ -114,4 +116,3 @@ class BlogPublicationsQueries {
     }
 
 }
-?>

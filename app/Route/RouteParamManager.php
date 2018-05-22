@@ -7,6 +7,43 @@ namespace app\Route;
  */
 class RouteParamManager {
 
+/**
+$data = ['id' => 2, 'page'=>'good', 'size' => '4'];
+$template = ['localhost/{id}/{page}/{size}',
+'localhost/{page}/{size}/{id}',
+'localhost/{page}/{id}/{size}',
+'localhost/{id}/{size}/{page}'
+];
+
+function ($data, $template) {
+
+}
+
+result:
+localhost/good/2/2   ? localhost/good/4/2
+localhost/good/2/4
+localhost/2/4/good
+ * */
+
+    //public static function task($data, $template){
+    public static function task()
+    {
+        $data = ['id' => 2, 'page' => 'good', 'size' => '4'];
+        $template = ['localhost/{id}/{page}/{size}',
+            'localhost/{page}/{size}/{id}',
+            'localhost/{page}/{id}/{size}',
+            'localhost/{id}/{size}/{page}'];
+
+        return str_replace( array_map(function ($v)  { return '{'.$v.'}'; }, array_keys($data)), $data, $template);
+
+/*
+        $replacedTemplate = str_replace( array_map(function ($v)  { return '{'.$v.'}'; }, array_keys($data)), $data, $template);
+echo '<pre>template = ', var_dump($template), '<pre/>';
+echo '<pre>replacedTemplate = ', var_dump($replacedTemplate), '<pre/>';
+        return $replacedTemplate;
+*/
+    }
+
     /**
      * @param string $controllerParam
      * @param string $url
@@ -17,8 +54,8 @@ class RouteParamManager {
         $urlParams = explode('/', $url);
         $controllerParams[1] = self::addMarker($urlParams[1], 'Action');
 
-        return array('controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]);// - если все роуты кроме '/' содержат {id}-параметры
-        //return (!empty($urlParams[2])) ? array('controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]) : array('controller' => $controllerParam, 'action' => $controllerParams[1]);
+        return ['controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]];
+        //return (!empty($urlParams[2])) ? ['controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]] : ['controller' => $controllerParam, 'action' => $controllerParams[1]];
     }
 
     /**
