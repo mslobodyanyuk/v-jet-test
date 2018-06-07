@@ -35,13 +35,6 @@ localhost/2/4/good
             'localhost/{id}/{size}/{page}'];
 
         return str_replace( array_map(function ($v)  { return '{'.$v.'}'; }, array_keys($data)), $data, $template);
-
-/*
-        $replacedTemplate = str_replace( array_map(function ($v)  { return '{'.$v.'}'; }, array_keys($data)), $data, $template);
-echo '<pre>template = ', var_dump($template), '<pre/>';
-echo '<pre>replacedTemplate = ', var_dump($replacedTemplate), '<pre/>';
-        return $replacedTemplate;
-*/
     }
 
     /**
@@ -53,9 +46,7 @@ echo '<pre>replacedTemplate = ', var_dump($replacedTemplate), '<pre/>';
     {
         $urlParams = explode('/', $url);
         $controllerParams[1] = self::addMarker($urlParams[1], 'Action');
-
         return ['controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]];
-        //return (!empty($urlParams[2])) ? ['controller' => $controllerParam, 'action' => $controllerParams[1], 'id' => $urlParams[2]] : ['controller' => $controllerParam, 'action' => $controllerParams[1]];
     }
 
     /**
@@ -66,4 +57,5 @@ echo '<pre>replacedTemplate = ', var_dump($replacedTemplate), '<pre/>';
     public static function addMarker($a, $b) {
         return $a . $b;
     }
+
 }
