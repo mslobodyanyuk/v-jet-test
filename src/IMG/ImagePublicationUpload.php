@@ -1,6 +1,6 @@
 <?php
 
-namespace src\img;
+namespace src\IMG;
 use config;
 
 /**

@@ -1,9 +1,9 @@
 <?php
-namespace src\controller;
+namespace src\Controller;
 error_reporting(E_ALL & ~(E_NOTICE| E_WARNING ));
 
 use config;
-use src\db\BlogPublicationsQueries as BlogPublicationsQueries;
+use src\DB\BlogPublicationsQueries as BlogPublicationsQueries;
 
 /**
  * Class Controller, the controller performs Actions.

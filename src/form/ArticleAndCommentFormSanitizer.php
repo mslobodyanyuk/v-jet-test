@@ -1,6 +1,6 @@
 <?php
 
-namespace src\form;
+namespace src\Form;
 use src\img\ImagePublicationUpload as ImagePublicationUpload;
 
 /**

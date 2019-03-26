@@ -41,7 +41,7 @@ Actions on deployment of the project:
 
 * make a new database - test_blog for example ( utf8_general_ci encoding )
 
-* database settings in `cofig/conf.php` file
+* database settings in `config/conf.php` file
 
 ```php
         $databaseParameters = [
@@ -52,7 +52,7 @@ Actions on deployment of the project:
         ];
 ```
 
-* folder with uploaded images is set in the same way in the `cofig/conf.php` file
+* folder with uploaded images is set in the same way in the `config/conf.php` file
 
 ```php
  $uplPath = $_SERVER['DOCUMENT_ROOT'].'/upl/images/';

@@ -1,6 +1,6 @@
 <?php
 
-namespace src\db;
+namespace src\DB;
 use config;
 
 /**
